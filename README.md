@@ -16,7 +16,7 @@ To get started:
 
 2) Make sure you have an API key (located in your Prevoty Console http://prevoty.com)
 
-3) Edit `examples/example.js` - you will want to put in your API key and rule key
+3) Edit `examples/example.js` - you will want to put in your API and configuration keys
 
 4) Run `node examples/example.js`
 

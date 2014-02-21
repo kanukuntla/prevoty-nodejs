@@ -1,5 +1,5 @@
 var apiKey = 'api key goes here';
-var ruleKey = 'rule key goes here';
+var configurationKey = 'configuration key goes here';
 var input = 'the <script>alert("quick brown fox");</script> jumps over the lazy dog & mouse';
 
 var prevoty = require('../src/prevoty.js').client({ key: apiKey });
@@ -13,7 +13,7 @@ prevoty.verify(function(err, verified) {
       if (!err) {
         console.log('Key info:', info);
         // Filter
-        prevoty.filter(input, ruleKey, function(err, filtered) {
+        prevoty.filter(input, configurationKey, function(err, filtered) {
           if (!err) {
             console.log('Filter:', filtered);
           }

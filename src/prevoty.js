@@ -40,9 +40,9 @@ var Prevoty = (function() {
   };
 
   // Endpoint: /rule/verify
-  Prevoty.prototype.verifyRule = function(ruleKey, callback) {
+  Prevoty.prototype.verifyConfiguration = function(configurationKey, callback) {
     var options = {
-      'url' : this.base + '/rule/verify?api_key=' + this.key + '&rule_key=' + ruleKey
+      'url' : this.base + '/rule/verify?api_key=' + this.key + '&rule_key=' + configurationKey
     };
     request.get(options, function (error, response, body) {
       if (!error) {
@@ -56,14 +56,14 @@ var Prevoty = (function() {
   };
 
   // Endpoint: /xss/filter
-  Prevoty.prototype.filter = function(input, ruleKey, callback) {
+  Prevoty.prototype.filter = function(input, configurationKey, callback) {
     var options = {
       'url' : this.base + '/xss/filter',
       'json' : true,
       'form' : {
         'api_key' : this.key,
         'input' : input,
-        'rule_key' : ruleKey
+        'rule_key' : configurationKey
       }
     };
     request.post(options, function (error, response, body) {
