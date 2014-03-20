@@ -56,14 +56,104 @@ var Prevoty = (function() {
   };
 
   // Endpoint: /xss/filter
-  Prevoty.prototype.filter = function(input, configurationKey, callback) {
+  Prevoty.prototype.filter_content = function(input, configuration_key, callback) {
     var options = {
       'url' : this.base + '/xss/filter',
       'json' : true,
       'form' : {
         'api_key' : this.key,
         'input' : input,
-        'rule_key' : configurationKey
+        'rule_key' : configuration_key
+      }
+    };
+    request.post(options, function (error, response, body) {
+      if (!error) {
+        if (response.statusCode == 200) { return callback(null, body); }
+        if (response.statusCode == 400) { return callback('api_key is required', false); }
+        if (response.statusCode == 403) { return callback('api_key is invalid', false); }
+        if (response.statusCode == 500) { return callback('Internal server error', false); }
+      }
+      return callback('Unknown error', false);
+    });
+  };
+
+  // Endpoint: /url/results
+  Prevoty.prototype.analyze_link = function(url, callback) {
+    var options = {
+      'url' : this.base + '/url/results?api_key=' + this.key + '&url=' + url,
+      'json' : true,
+    };
+    request.get(options, function (error, response, body) {
+      if (!error) {
+        if (response.statusCode == 200) { return callback(null, body); }
+        if (response.statusCode == 400) { return callback('api_key and rule_key are required', false); }
+        if (response.statusCode == 403) { return callback('api_key is invalid', false); }
+        if (response.statusCode == 500) { return callback('Internal server error', false); }
+      }
+      return callback('Unknown error', false);
+    });
+  };
+
+  // Endpoint: /token/timed/generate
+  Prevoty.prototype.generate_token = function(user_identifier, action, ttl, callback) {
+    var options = {
+      'url' : this.base + '/token/timed/generate?api_key=' + this.key + '&user_identifier=' + user_identifier + '&action=' + action + '&ttl=' + ttl,
+      'json' : true
+    };
+    request.get(options, function (error, response, body) {
+      if (!error) {
+        if (response.statusCode == 200) { return callback(null, body); }
+        if (response.statusCode == 400) { return callback('api_key and rule_key are required', false); }
+        if (response.statusCode == 403) { return callback('api_key is invalid', false); }
+        if (response.statusCode == 500) { return callback('Internal server error', false); }
+      }
+      return callback('Unknown error', false);
+    });
+  };
+
+  // Endpoint: /token/timed/validate
+  Prevoty.prototype.validate_token = function(user_identifier, action, token, callback) {
+    var options = {
+      'url' : this.base + '/token/timed/validate?api_key=' + this.key + '&user_identifier=' + user_identifier + '&action=' + action + '&token=' + token,
+      'json' : true
+    };
+    request.get(options, function (error, response, body) {
+      if (!error) {
+        if (response.statusCode == 200) { return callback(null, body); }
+        if (response.statusCode == 400) { return callback('api_key and rule_key are required', false); }
+        if (response.statusCode == 403) { return callback('api_key is invalid', false); }
+        if (response.statusCode == 500) { return callback('Internal server error', false); }
+      }
+      return callback('Unknown error', false);
+    });
+  };
+
+  // Endpoint: /token/timed/delete
+  Prevoty.prototype.delete_token = function(user_identifier, action, token, callback) {
+    var options = {
+      'url' : this.base + '/token/timed/delete?api_key=' + this.key + '&user_identifier=' + user_identifier + '&action=' + action + '&token=' + token,
+      'json' : true
+    };
+    request.get(options, function (error, response, body) {
+      if (!error) {
+        if (response.statusCode == 200) { return callback(null, body); }
+        if (response.statusCode == 400) { return callback('api_key and rule_key are required', false); }
+        if (response.statusCode == 403) { return callback('api_key is invalid', false); }
+        if (response.statusCode == 500) { return callback('Internal server error', false); }
+      }
+      return callback('Unknown error', false);
+    });
+  };
+
+  // Endpoint: /query/parse
+  Prevoty.prototype.analyze_query = function(query, configuration_key, callback) {
+    var options = {
+      'url' : this.base + '/query/parse',
+      'json' : true,
+      'form' : {
+        'api_key' : this.key,
+        'query' : query,
+        'config_key' : configuration_key
       }
     };
     request.post(options, function (error, response, body) {
